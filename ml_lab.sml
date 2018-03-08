@@ -26,8 +26,17 @@ fun list2Set nil = Empty
 (* comment *)
 fun union Empty set2 = set2
   | union set1 Empty = set1
-  | union Set(x1, rest1) Set(x2, rest2) =
+  | union (Set(x1, rest1)) (Set(x2, rest2)) =
     list2Set
+
+(* comment *)
+fun intersect Empty set2 = Empty
+  | intersect set1 Empty = Empty
+  | intersect (Set(x, rest)) set2 =
+    if isMember x set2
+    then Set(x, intersect rest set2)
+    else intersect rest set2;
+
 
 (* Simple function to stringify the contents of a Set of characters *)
 fun stringifyCharSet Empty = ""
