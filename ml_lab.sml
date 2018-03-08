@@ -2,12 +2,32 @@
 *
 * CSCI 305 - ML Programming Lab
 *
-* <firstname> <lastname>
-* <email-address>
+* Benjamin Bushnell
+* Benjaminpaulb@gmail.com
 *
 ***************************************************************)
 
-(* Define your data type and functions here *)
+(* comment *)
+datatype 'element set = Empty | Set of 'element * 'element set;
+
+(* comment *)
+fun isMember e Empty = false
+  | isMember e (Set(y, rest)) =
+    e = y
+    orelse isMember e rest;
+
+(* comment *)
+fun list2Set nil = Empty
+  | list2Set (x::xs) =
+    if isMember x list2Set(xs)
+    then list2Set(xs);
+    else Set(x, list2Set(xs));
+
+(* comment *)
+fun union Empty set2 = set2
+  | union set1 Empty = set1
+  | union Set(x1, rest1) Set(x2, rest2) =
+    list2Set
 
 (* Simple function to stringify the contents of a Set of characters *)
 fun stringifyCharSet Empty = ""
